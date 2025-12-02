@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Demo AML con Neo4j</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #fafafa;
+      color: #333;
+    }
+    button {
+      padding: 12px 20px;
+      margin-right: 15px;
+      margin-bottom: 20px;
+      border: none;
+      background: #0077ff;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #005fd1;
+    }
+    pre {
+      background: #eee;
+      padding: 20px;
+      border-radius: 6px;
+      width: 90%;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🚨 Demo Antilavado de Dinero (AML)</h1>
+  <p>Click en los botones para ejecutar consultas en Neo4j Aura.</p>
+
+  <button onclick="consultar('transacciones')">Ver Transacciones</button>
+  <button onclick="consultar('sospechosas')">Detectar Actividad Sospechosa</button>
+  <button onclick="consultar('centralidad')">Calcular Centralidad</button>
+
+  <h2>Resultados</h2>
+  <pre id="output">Aquí aparecerá la respuesta…</pre>
+
+  <script>
+    const API = "https://tu-backend.onrender.com";  // cambia esto
+
+    async function consultar(endpoint) {
+      const out = document.getElementById("output");
+      out.textContent = "Cargando...";
+
+      try {
+        const res = await fetch(`${API}/${endpoint}`);
+        const data = await res.json();
+        out.textContent = JSON.stringify(data, null, 2);
+      } catch (e) {
+        out.textContent = "Error conectando al servidor:\n" + e;
+      }
+    }
+  </script>
+
+</body>
+</html>
